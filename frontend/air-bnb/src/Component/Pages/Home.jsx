@@ -1,13 +1,16 @@
 import { apiRequest, logOutUrl } from "@/common/api";
 import { Button } from "@/components/ui/button"
+import { userDataContext } from "@/context/userContext";
 import { useMutation } from "@tanstack/react-query"
+import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 
 export const Home = () => {
     const navigate = useNavigate()
-
+    const { userData } = useContext(userDataContext)
+    console.log("user", userData)
     const handleLout = useMutation({
         mutationFn: async (data) => {
             const response = await apiRequest(logOutUrl, "POST", data);
@@ -15,15 +18,14 @@ export const Home = () => {
             return response;
         },
         onSuccess: (data) => {
-            toast.success(" Registered successfully:", data);
+            toast.success(" Logout successfully:", data);
             navigate("/login")
         },
         onError: (error) => {
-            toast.error(" Registration failed:", error.message);
+            toast.error(" Logout failed:", error.message);
         },
     })
     const handleClick = () => {
-        console.log("click")
         handleLout.mutate()
     }
     return (

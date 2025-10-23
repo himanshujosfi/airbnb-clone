@@ -4,6 +4,7 @@ import connectDB from "./config/connection.js";
 import authroute from "./routes/authroute.js";
 import cookieParser from "cookie-parser";
 import cors from "cors";
+import userRouter from "./routes/user.js";
 
 dotenv.config();
 
@@ -25,6 +26,7 @@ app.use(
 
 // Routes
 app.use("/api/auth", authroute);
+app.use("/api/user", userRouter)
 
 app.listen(port, () => {
     connectDB();

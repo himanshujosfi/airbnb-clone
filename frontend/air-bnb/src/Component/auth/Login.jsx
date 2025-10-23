@@ -10,13 +10,11 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { useMutation } from "@tanstack/react-query"
-import { useTransition } from "react"
 import { useForm } from "react-hook-form"
 import { useNavigate } from "react-router-dom"
 import { toast } from "react-toastify"
 
 export const Login = () => {
-    const [isPending, startTransition] = useTransition();
     const navigate = useNavigate()
 
     const form = useForm({
@@ -33,21 +31,20 @@ export const Login = () => {
             return response;
         },
         onSuccess: (data) => {
-            toast.success(" Registered successfully:", data);
+            toast.success("Login successfully:", data);
             navigate("/")
         },
         onError: (error) => {
-            toast.error(" Registration failed:", error.message);
+            toast.error(" Login failed:", error.message);
         },
     });
 
     // 2. Define a submit handler.
     function onSubmit(values) {
         console.log("value", values)
-        startTransition(async () => {
-            formMutation.mutate(values)
-        })
+        formMutation.mutate(values)
     }
+
 
     return (
         <>
@@ -98,10 +95,11 @@ export const Login = () => {
 
                             <Button
                                 type="submit"
-                                disable={isPending}
+                                // disable={isPending}
                                 className="w-full bg-blue-600 hover:bg-blue-700 text-white text-lg rounded-lg"
                             >
-                                {isPending ? "loading" : "Log In"}
+                                Log In
+                                {/* {isPending ? "loading" : "Log In"} */}
                             </Button>
 
                             <p className="text-center text-sm text-gray-600 mt-4">

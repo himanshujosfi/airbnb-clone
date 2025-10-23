@@ -3,6 +3,7 @@ const BASE_URL = "http://localhost:8000";
 export const logOutUrl = "/api/auth/logout"
 export const logInUrl = "/api/auth/login"
 export const signinUrl = "/api/auth/signin"
+export const getUser = "/api/user/getUser"
 
 export async function apiRequest(endpoint, method = "GET", data = null, headers = {}) {
     try {
@@ -12,6 +13,7 @@ export async function apiRequest(endpoint, method = "GET", data = null, headers 
                 "Content-Type": "application/json",
                 ...headers,
             },
+            credentials: "include",
         };
         if (data) {
             config.body = JSON.stringify(data);
