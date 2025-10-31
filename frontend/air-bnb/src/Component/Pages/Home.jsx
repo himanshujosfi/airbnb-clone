@@ -35,7 +35,7 @@ export const Home = () => {
             <Button onClick={() => handleClick()}>
                 Logout
             </Button>
-            <h2>Welcome, {user?.name || "Guest"} </h2>
+            <h2>Welcome, {user?.email || "Guest"} </h2>
 
         </div>
     )

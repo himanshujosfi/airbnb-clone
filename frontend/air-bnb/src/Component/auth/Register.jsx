@@ -34,7 +34,7 @@ export const Register = () => {
             return response;
         },
         onSuccess: (data) => {
-            navigation("/")
+            navigation("/login")
             toast.success("Registered sucessfully", data)
         },
         onError: (error) => {
