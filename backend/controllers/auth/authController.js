@@ -21,7 +21,7 @@ export const signup = async (req, res) => {
             password: hashedPassword
         })
 
-        const token = await tokenGenerator({ userId: user._id })
+        const token = await tokenGenerator(savedUser._id)
         console.log("token", token)
         res.cookie("token", token, {
             httpOnly: true,
@@ -64,7 +64,8 @@ export const login = async (req, res) => {
                 message: "Invalid credentials"
             })
         }
-        const token = await tokenGenerator({ userId: user._id })
+        const token = await tokenGenerator(newUser._id)
+        console.log("tokem", token)
 
         res.cookie("token", token, {
             httpOnly: true,

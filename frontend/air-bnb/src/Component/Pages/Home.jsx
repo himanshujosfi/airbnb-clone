@@ -9,12 +9,12 @@ import { toast } from "react-toastify";
 
 export const Home = () => {
     const navigate = useNavigate()
-    const { userData } = useContext(userDataContext)
-    console.log("user", userData)
+    // const { userData } = useContext(userDataContext)
+    const { data: user, isLoading, isError } = useContext(userDataContext);
+
     const handleLout = useMutation({
         mutationFn: async (data) => {
             const response = await apiRequest(logOutUrl, "POST", data);
-            console.log("Login Success:", response);
             return response;
         },
         onSuccess: (data) => {
@@ -28,11 +28,15 @@ export const Home = () => {
     const handleClick = () => {
         handleLout.mutate()
     }
+    if (isLoading) return <p>Loading user...</p>;
+    if (isError) return <p>Not logged in or failed to fetch user</p>;
     return (
         <div>
             <Button onClick={() => handleClick()}>
                 Logout
             </Button>
+            <h2>Welcome, {user?.name || "Guest"} </h2>
+
         </div>
     )
 }

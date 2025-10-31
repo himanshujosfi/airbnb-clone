@@ -6,14 +6,16 @@ import { createContext } from "react";
 export const userDataContext = createContext()
 
 function UserContext({ children }) {
-
-    // Fetch user data automatically
     const userData = useQuery({
         queryKey: ["user"],
         queryFn: async () => {
-            return await apiRequest(getUser, "GET");
+            const response = await apiRequest(getUser, "GET");
+            return response.user;
         },
+        retry: false,
+        refetchOnWindowFocus: false,
     });
+
 
     return (
         <userDataContext.Provider value={userData}>
